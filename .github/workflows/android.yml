@@ -16,6 +16,18 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+          
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install Yarn
+        run: npm install -g yarn
+          
+      - name: Sync latest Unblocked Music source code
+        run:
+          git clone --depth=1 https://github.com/kk599/server.git && cd server && yarn && yarn build && zip -r ../UnblockNeteaseMusic.zip . && cd .. && rm ./app/src/main/assets/UnblockNeteaseMusic.zip && rm -rf server && mv ./UnblockNeteaseMusic.zip ./app/src/main/assets/UnblockNeteaseMusic.zip
 
       - name: Sync latest Unblocked Music source code
         run:
